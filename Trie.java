@@ -35,13 +35,19 @@ public class Trie{
 				temp+= Character.toLowerCase(this.charAt(i));
 			} else if(n> 96 && n < 123){
 				temp+=this.charAt(i);
-			}
+			} 
 		}
 		return temp;
 	}
+    public int returnEnd(){
+        this.wordCount++;
+        this.word = true;
+        return wordCount;
+        
+    }
 	public void add(String s){
 		if(s.length ==0){
-			this.word = true;
+			int l = s.returnEnd();
 			return;
 		}
 		s = s.normalize();
@@ -67,7 +73,20 @@ public class Trie{
 		}
 		return this.children[index].isWord(s.substring(1));
 	}
-	
+
+	public void wordSearch(Node node){
+        if (this.word ){
+            for (int i = 0; i < 13; i++){
+                wordSearch(this.children[i]);
+            }
+            visit(Node);
+            for (int i = 13 ; i < 26; i++){
+                wordSearch(this.chilren[i]);
+            }
+            
+            }
+        }
+    }
 	    public static void main(String[] args) throws IOException {
         Trie trie = new Trie();
         Scanner s = null;
@@ -76,6 +95,7 @@ public class Trie{
             while (s.hasNext()) {
                 String item = s.next(); // Scanner splits input on whitespace, by default
                 trie.add(item);
+                System.out.println(add);
             }
         } finally {
             if (s != null) {
@@ -85,5 +105,3 @@ public class Trie{
 
         
     }
-
-}
