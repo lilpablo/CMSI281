@@ -170,7 +170,7 @@ public class Trie{
         }
         toString(trie);
         for (int i = 0; i < 10; i++){
-        	System.out.println("This file said " + topWords[i] + " | This many times " + counts[i]);
+        	System.out.println(topWords[i] + " | " + counts[i]);
         }
 
         
