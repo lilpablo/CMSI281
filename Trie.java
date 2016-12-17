@@ -2,6 +2,8 @@ import java.util.*;
 import java.io.*;
 
 public class Trie{
+	private String [] Words = new String[10];
+	private int[] counts = new int[10];
     public class Node{
 		char c;
 		Node[] children;
@@ -30,8 +32,11 @@ public class Trie{
 	public String normalize(){
 		String temp= "";
 		for (int i = 0; i< this.length(); i++;){
-			// Get rid of all but letters 64 to 91 or 96 to 123 :)
-			if ((n>64&& n< 91)){
+			// Get rid of all but letters 64 to 91 or 96 to 123 :) and keeps the space
+			char n = this.charAt(i);
+			if (n== ' ')
+				temp+= n;
+			if ((n>='A'&& n<= 'Z')){
 				temp+= Character.toLowerCase(this.charAt(i));
 			} else if(n> 96 && n < 123){
 				temp+=this.charAt(i);
@@ -40,13 +45,28 @@ public class Trie{
 		return temp;
 	}
     public int returnEnd(){
-        this.wordCount++;
         this.word = true;
-        return wordCount;
+		this.wordCount++;
+        return this.wordCount;
         
     }
+	public void compareValues(String s){
+		if(s.charAt(0) == null){
+			if(Words[0] == ""){
+				Words[1] = s;
+				counts[1] = this.wordCount;
+			}else {
+				for (int i = 0; i < 10; i++){
+					
+				}
+			}
+			
+		}
+	}
 	public void add(String s){
-		if(s.length ==0){
+		int l = 0;
+		
+		if(s.charAt(0) == null){
 			int l = s.returnEnd();
 			return;
 		}
