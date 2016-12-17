@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class Trie{
 	public static String worder = " ";
-	private String [] topWords = new String[10];
-	private int [] counts = new int[10];
+	private static String [] topWords = new String[10];
+	private static int [] counts = new int[10];
 	char c;
 	Trie[] children;
 	boolean word;			// end of node set true when the list makes a word
@@ -45,10 +45,10 @@ public class Trie{
 
 	String temp = normalize(s);
 	adder(temp);
-	if(this.word){
-			System.out.println(s + " , " + this.wordCount);
-			N = 0;
-		}
+	// if(this.word){
+	// 		//System.out.println(s + " , " + this.wordCount);
+	// 		N = 0;
+	// 	}
 	}
 
 	public static int N = 0;
@@ -100,11 +100,36 @@ public class Trie{
 
 	}
 
+	public static void compareValue(int value, String temps, int [] count, String [] WORDS){
+		int [] temp = new int[count.length *2];
+		String [] tempString = new String[count.length*2];
+		int j = 0;
+		for(int i = 0; i < count.length; i++){
+			if(count[i]>= value){
+				temp[i] = value;
+				tempString[i] = temps;
+				temps = WORDS[i];
+				value = count[i];
+			} else {
+				temp[i] = count[i];
+				tempString[i] = WORDS[i];
+				
+			}
+		}
+		temp[10] = value;
+		tempString[10] = temps;
+		for ( int i = 0; i < count.length; i++){
+			count[i] = temp[i+1];
+			WORDS[i] = tempString[i+1];
+		}
+	}
+
 	public static void visit(Trie trie){
-		System.out.println(trie.c);
+		//System.out.println(trie.c);
 		if(trie.word){
 			temporary = trie.fullWord;
-			System.out.println(trie.wordCount + " , "+ temporary);
+			//System.out.println(trie.wordCount + " , "+ temporary);
+			compareValue(trie.wordCount, temporary, counts, topWords);
 			trie.word = false;
 
 			//temporary.substring(0, temporary.length()-1);
@@ -144,6 +169,9 @@ public class Trie{
             }
         }
         toString(trie);
+        for (int i = 0; i < 10; i++){
+        	System.out.println("This file said " + topWords[i] + " | This many times " + counts[i]);
+        }
 
         
     }
